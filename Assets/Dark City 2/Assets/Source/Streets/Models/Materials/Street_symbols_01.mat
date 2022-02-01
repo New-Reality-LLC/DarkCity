@@ -130,7 +130,7 @@ Material:
     - _RaindropsUVTile: 0.4
     - _Raindropsint: 0.41
     - _ReceiveShadows: 0
-    - _Smoothness: 0.157
+    - _Smoothness: 0.529
     - _SmoothnessTextureChannel: 0
     - _Specular: 0.5
     - _SpecularHighlights: 1
