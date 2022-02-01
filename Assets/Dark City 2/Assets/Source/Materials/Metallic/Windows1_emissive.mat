@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 5c4bb37f99aa5ad4f9e6acf74547c79c, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}

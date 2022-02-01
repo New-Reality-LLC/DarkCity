@@ -5,11 +5,12 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Monitor_Subway1A
   m_Shader: {fileID: 4800000, guid: fd4eec88919668c4eac8652ce941aae4, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 0
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -68,9 +69,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlbedoPower: 0.6
+    - _AlphaCutoff: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distort: 0.35
     - _DstBlend: 0
     - _EmissionPower: 1
     - _GlossMapScale: 1
@@ -93,3 +96,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color1: {r: 0, g: 0.58155894, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
