@@ -92,7 +92,7 @@ Material:
     - PixelSnap: 0
     - _AlphaClip: 0
     - _Blend: 0
-    - _BumpScale: 0.16
+    - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ColorMask: 15
