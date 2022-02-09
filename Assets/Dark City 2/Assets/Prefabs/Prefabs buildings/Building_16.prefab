@@ -75271,7 +75271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4965722229773626
 Transform:
   m_ObjectHideFlags: 0
@@ -98528,7 +98528,7 @@ LODGroup:
     - renderer: {fileID: 23877911798099916}
     - renderer: {fileID: 23066499427251402}
     - renderer: {fileID: 23295395922730860}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!65 &65065996570067480
 BoxCollider:
   m_ObjectHideFlags: 0
