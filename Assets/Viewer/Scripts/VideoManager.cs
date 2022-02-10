@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using BunnyCDN;
@@ -14,108 +13,6 @@ using Debug = UnityEngine.Debug;
 
 public static class VideoManager
 {
-    #region ATTENTION!!! First load Oculus App cruch(!) HARDCODE ZONE. BE CAREFUL, YOU CAN LOSE YOUR EYES AND MIND HERE
-    
-    public static async Task LoadAllVideos(IProgress<float> progress)
-    {
-        BunnyCDNUser bunnyUser = new BunnyCDNUser();
-        progress.Report(0f);
-
-        const string path_Egor = "2021.11.26/Egor_Greeting";
-        const string path_NikHead = "2021.11.26/Nikita_Head";
-        const string path_OlegHead = "2021.11.26/Oleg_Head";
-        const string path_Vitalya = "2021.11.26/Vitalya_PlayMusic";
-
-        string[] egor = Saver.Binary_GetFrames($"{BunnyCDNStorage.path_StudioVideos}/{path_Egor}");
-        string[] nick = Saver.Binary_GetFrames($"{BunnyCDNStorage.path_StudioVideos}/{path_NikHead}");
-        string[] oleg = Saver.Binary_GetFrames($"{BunnyCDNStorage.path_StudioVideos}/{path_OlegHead}");
-        string[] vitalya = Saver.Binary_GetFrames($"{BunnyCDNStorage.path_StudioVideos}/{path_Vitalya}");
-        
-        bool EgorExist = egor != null && egor.Length > 0;
-        bool NickExist = nick != null && nick.Length > 0;
-        bool OlegExist = oleg != null && oleg.Length > 0;
-        bool VitalyaExist = vitalya != null && vitalya.Length > 0;
-        
-        
-        #region Collect data
-        //----------Egor cyber-punk
-
-        List<StorageObject> videos_Egor = (!EgorExist) ? await bunnyUser.GetStorageObjectsAsync($"{BunnyCDNStorage.path_StudioVideos}/{path_Egor}/Frames") : new List<StorageObject>();
-        /*List<StorageObject> videos_NikHead = (!NickExist) ? await bunnyUser.GetStorageObjectsAsync($"studio_videos/{path_NikHead}/Frames") : new List<StorageObject>();
-        List<StorageObject> videos_OlegHead = (!OlegExist) ? await bunnyUser.GetStorageObjectsAsync($"studio_videos/{path_OlegHead}/Frames") : new List<StorageObject>();
-        List<StorageObject> videos_Vita = (!VitalyaExist) ? await bunnyUser.GetStorageObjectsAsync($"studio_videos/{path_Vitalya}/Frames") : new List<StorageObject>();
-        */
-        float totalCount = videos_Egor.Count /*+ videos_NikHead.Count + videos_OlegHead.Count + videos_Vita.Count*/;
-        
-        float currentLoaded = 0f;
-        #endregion
-        
-        /*//Load Info
-        await bunnyUser.DownloadObjectAsync(BunnyCDNStorage.VideoType.Studio,
-            "2021.11.16/Egor_CyberPunk/info.txt",
-            $"{Saver.CreatePath_CloudsBinary(Saver.GeneralPath.Loaded, "2021.11.16/Egor_CyberPunk")}/info.txt");
-                
-        //Load Audio
-        for (int i = 0; i < audios_Egor.Count; i++)
-        { 
-            await bunnyUser.DownloadObjectAsync(BunnyCDNStorage.VideoType.Studio,
-                $"2021.11.16/Egor_CyberPunk/Audio/{audios_Egor[i].ObjectName}",
-                $"{Saver.CreatePath_CloudsBinaryAudio(Saver.GeneralPath.Loaded, "2021.11.16/Egor_CyberPunk")}/{audios_Egor[i].ObjectName}");
-        }*/
-        
-        //Load Egor
-        for (int i = 0; i < videos_Egor.Count; i++)
-        { 
-            await bunnyUser.DownloadObjectAsync($"{BunnyCDNStorage.path_StudioVideos}/{path_Egor}/Frames/{videos_Egor[i].ObjectName}",
-                Saver.CreatePath_CloudsBinaryFrames($"{BunnyCDNStorage.path_StudioVideos}/{path_Egor}/{videos_Egor[i].ObjectName}"));
-            currentLoaded += 1f;
-            float progressValue = currentLoaded / totalCount;
-            progress.Report(progressValue);
-        }
-        /*//Load NikHead
-        for (int i = 0; i < videos_NikHead.Count; i++)
-        { 
-            await bunnyUser.DownloadObjectAsync(BunnyCDNStorage.VideoType.Studio,
-                $"{path_NikHead}/Frames/{videos_NikHead[i].ObjectName}",
-                $"{Saver.CreatePath_CloudsBinaryFrames(Saver.GeneralPath.Loaded, path_NikHead)}/{videos_NikHead[i].ObjectName}");
-            
-            currentLoaded += 1f;
-            float progressValue = currentLoaded / totalCount;
-            progress.Report(progressValue);
-        }
-        //Load OlegHead
-        for (int i = 0; i < videos_OlegHead.Count; i++)
-        { 
-            await bunnyUser.DownloadObjectAsync(BunnyCDNStorage.VideoType.Studio,
-                $"{path_OlegHead}/Frames/{videos_OlegHead[i].ObjectName}",
-                $"{Saver.CreatePath_CloudsBinaryFrames(Saver.GeneralPath.Loaded, path_OlegHead)}/{videos_OlegHead[i].ObjectName}");
-            
-            currentLoaded += 1f;
-            float progressValue = currentLoaded / totalCount;
-            progress.Report(progressValue);
-        }
-        //Load Vitalya
-        for (int i = 0; i < videos_Vita.Count; i++)
-        { 
-            await bunnyUser.DownloadObjectAsync(BunnyCDNStorage.VideoType.Studio,
-                $"{path_Vitalya}/Frames/{videos_Vita[i].ObjectName}",
-                $"{Saver.CreatePath_CloudsBinaryFrames(Saver.GeneralPath.Loaded, path_Vitalya)}/{videos_Vita[i].ObjectName}");
-            
-            currentLoaded += 1f;
-            float progressValue = currentLoaded / totalCount;
-            progress.Report(progressValue);
-        }*/
-        bunnyUser.Dispose();
-        progress.Report(1f);
-    }
-    #endregion
-    
-    #region Built in videos
-
-    private const string bi_fnCDNPreloadVideos = "system/preloadvideos.txt";
-
-    #endregion
-
     #region CDN Videos
 
     private static List<string> cdn_Videos;
@@ -202,6 +99,11 @@ public static class VideoManager
 
     private static CloudPlayer _currentPlayer;
     private static string _currentVideo;
+
+    public static CloudPlayer GetCurrentCloudPlayer()
+    {
+        return _currentPlayer;
+    }
     
     internal static void VPC_RegisterPlayer(CloudPlayer player)
     {
@@ -314,5 +216,16 @@ public static class VideoManager
         }
     }
 
+    internal static void DeleteVideo(string shortPath)
+    {
+        string fullPath = Saver.CreatePath_CloudsBinary(shortPath);
+
+        bool exists = Directory.Exists(fullPath);
+        if (exists)
+        {
+            Directory.Delete(fullPath, true);
+        }
+    }
+    
     #endregion
 }
